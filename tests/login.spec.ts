@@ -1,6 +1,10 @@
 import {test,expect} from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { HomePage } from '../pages/HomePage';
+import { ProductPage } from '../pages/ProductPage';
+
+import productData from '../data/productDetails.json';
+
 
 test.beforeEach("Login", async({page})=>{
     const login = new LoginPage(page);
@@ -49,4 +53,38 @@ test("Assert the social media text and links", async({page}) =>{
     const homePage = new HomePage(page);
     await homePage.assertSocialLinks();
     await page.waitForTimeout(5000);
-})
+});
+
+test.only("Assert each product on listing and detail page", async ({ page }) => {
+    const productPage = new ProductPage(page);
+  
+    const sortedProducts = [...productData].sort((a, b) => a.name.localeCompare(b.name));
+  
+    const cards = productPage.getProductCards();
+    await expect(cards).toHaveCount(sortedProducts.length);
+  
+    for (let i = 0; i < sortedProducts.length; i++) {
+      const { name, details, price, image } = sortedProducts[i];
+      const formattedPrice = `$${price}`;
+  
+      // Assert on listing card
+      await productPage.assertTitle(i, name);
+      await productPage.assertDescription(i, details);
+      await productPage.assertPrice(i, formattedPrice);
+      await productPage.assertImage(i, image);
+  
+      // Go to details
+      await productPage.clickProduct(i);
+  
+      // Assert on detail page
+      await productPage.assertDetailTitle(name);
+      await productPage.assertDetailDescription(details);
+      await productPage.assertDetailPrice(formattedPrice);
+      await productPage.assertDetailImage(image);
+  
+      // Back to listing
+      await productPage.goBack();
+
+    }
+    await page.waitForTimeout(5000);
+  });
