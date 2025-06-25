@@ -41,4 +41,12 @@ test("Assert the footer", async ({page})=>{
 
     await homePage.footerText();
     await page.waitForTimeout(5000);
+});
+
+
+test("Assert the social media text and links", async({page}) =>{
+
+    const homePage = new HomePage(page);
+    await homePage.assertSocialLinks();
+    await page.waitForTimeout(5000);
 })
