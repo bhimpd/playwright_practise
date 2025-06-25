@@ -5,12 +5,14 @@ export class HomePage{
     readonly page:Page;
     readonly sidemenuItemsSelector: Locator;
     readonly hamburgerSelector: Locator;
+    readonly footerTextSelector: Locator;
 
     constructor(page:Page)
     {
         this.page = page;
         this.sidemenuItemsSelector = page.locator(".bm-item.menu-item");
-        this.hamburgerSelector = page.locator("#react-burger-menu-btn")
+        this.hamburgerSelector = page.locator("#react-burger-menu-btn");
+        this.footerTextSelector = page.locator(".footer_copy");
     }
 
     async clickHamburgerButton(){
@@ -28,5 +30,9 @@ export class HomePage{
 
     }
 
+
+    async footerText(){
+        await expect(this.footerTextSelector).toHaveText("© 2025 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy")
+    }
 
 }

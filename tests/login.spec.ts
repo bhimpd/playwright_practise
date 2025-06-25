@@ -35,3 +35,10 @@ test("Side menu assertion", async({page}) => {
     await page.waitForTimeout(5000);
 
 });
+
+test("Assert the footer", async ({page})=>{
+    const homePage = new HomePage(page);
+
+    await homePage.footerText();
+    await page.waitForTimeout(5000);
+})

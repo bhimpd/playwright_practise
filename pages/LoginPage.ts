@@ -56,7 +56,7 @@ async loginFailure() {
   }
 
 async assertloginError(){
-    await expect(this.loginError).toHaveText("Epic sadface: Username and password do not match any user in this service")
+    await expect(this.loginError).toHaveText("Epic sadface: Username and password do not match any user in this service");
 }
 
 
