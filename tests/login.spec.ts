@@ -93,8 +93,19 @@ test("Assert each product on listing and detail page", async ({ page }) => {
 
 test.only("Add the product to the cart", async({ page })=> {
     const addtocart = new AddToCartPage(page);
+    const login = new LoginPage(page);
 
+    addtocart.assertAddToCartLabel("Add to cart");
     addtocart.clickAddToCart();
+    addtocart.assertRemoveCartLabel("Remove");
+    addtocart.assertCartNumber("1");
+    addtocart.clickAddToCartIcon();
+    await login.assertDashboardPage("https://www.saucedemo.com/cart.html");
+    addtocart.assertCartTitleLabel("Your Cart");
+    addtocart.assertCartQtyLabel("QTY");
+    addtocart.assertCartDescLabel("Description");
+
+
     await page.waitForTimeout(5000);
 
 });
