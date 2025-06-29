@@ -11,6 +11,12 @@ export class AddToCartPage {
     readonly continueShoppingSelector: Locator;
     readonly cartQty: Locator;
     readonly checkoutSelector: Locator;
+    readonly productTitleSelector: Locator;
+    readonly productDescSelector: Locator;
+    readonly productAmtSelector: Locator;
+    readonly informationTitleSelectcor: Locator;
+
+
 
 
     constructor(page:Page) {
@@ -25,6 +31,12 @@ export class AddToCartPage {
         this.continueShoppingSelector = page.locator("#continue-shopping")
         this.cartQty = page.locator(".cart_quantity");
         this.checkoutSelector = page.locator("#checkout")
+
+        this.productTitleSelector = page.locator("#item_4_title_link")
+        this.productDescSelector = page.locator(".inventory_item_desc");
+        this.productAmtSelector = page.locator(".inventory_item_price")
+        this.informationTitleSelectcor = page.locator(".title")
+
 
     }
 
@@ -84,6 +96,28 @@ export class AddToCartPage {
         expect(cartLabel?.trim()).toEqual(expected)
     }
 
+    async assertProductTitleLabel(expected){
+        const cartLabel = await this.productTitleSelector.textContent();
+        expect(cartLabel?.trim()).toEqual(expected)
+    }
+    async assertProductDescLabel(expected){
+        const cartLabel = await this.productDescSelector.textContent();
+        expect(cartLabel?.trim()).toEqual(expected)
+    }
+    async assertProductAmtLabel(expected){
+        const cartLabel = await this.productAmtSelector.textContent();
+        expect(cartLabel?.trim()).toEqual(expected)
+    }
 
+    async clickCheckoutButton(){
+        await this.checkoutSelector.click();
+    }
+
+
+
+    async assertInformationTitle(expected){
+        const cartLabel = await this.informationTitleSelectcor.textContent();
+        expect(cartLabel?.trim()).toEqual(expected)
+    }
 
 }

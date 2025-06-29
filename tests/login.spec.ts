@@ -106,11 +106,22 @@ test.only("Add the product to the cart", async({ page })=> {
     addtocart.assertCartDescLabel("Description");
     addtocart.assertContinueShoppingLabel("Continue Shopping");
     addtocart.assertCartQuantityLabel("1");
+    addtocart.assertRemoveCartLabel("Remove");
+
+    addtocart.assertProductTitleLabel("Sauce Labs Backpack");
+    addtocart.assertProductDescLabel("carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.");
+    addtocart.assertProductAmtLabel("$29.99");
+
     addtocart.assertCheckoutLabel("Checkout");
+    addtocart.clickCheckoutButton();
+
+    await login.assertDashboardPage("https://www.saucedemo.com/checkout-step-one.html");
+
+    addtocart.assertInformationTitle("Checkout: Your Information");
 
 
 
 
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(8000);
 
 });
