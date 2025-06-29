@@ -119,6 +119,10 @@ test.only("Add the product to the cart", async({ page })=> {
 
     addtocart.assertInformationTitle("Checkout: Your Information");
 
+    addtocart.assertCancelLabel("Cancel");
+    addtocart.assertContinueLabel("Continue");
+    addtocart.enterUserDetails();
+    addtocart.clickContinue();
 
 
 

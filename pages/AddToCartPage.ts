@@ -15,6 +15,13 @@ export class AddToCartPage {
     readonly productDescSelector: Locator;
     readonly productAmtSelector: Locator;
     readonly informationTitleSelectcor: Locator;
+    readonly cancelSelector: Locator;
+    readonly continueSelector: Locator;
+    readonly firstNameSelector: Locator;
+    readonly lastNameSelector: Locator;
+    readonly postalCodeSelector: Locator;
+
+
 
 
 
@@ -36,6 +43,13 @@ export class AddToCartPage {
         this.productDescSelector = page.locator(".inventory_item_desc");
         this.productAmtSelector = page.locator(".inventory_item_price")
         this.informationTitleSelectcor = page.locator(".title")
+
+        this.cancelSelector = page.locator("#cancel")
+        this.continueSelector = page.locator("#continue")
+
+        this.firstNameSelector = page.locator("#first-name")
+        this.lastNameSelector = page.locator("#last-name")
+        this.postalCodeSelector = page.locator("#postal-code")
 
 
     }
@@ -113,11 +127,42 @@ export class AddToCartPage {
         await this.checkoutSelector.click();
     }
 
-
-
     async assertInformationTitle(expected){
         const cartLabel = await this.informationTitleSelectcor.textContent();
         expect(cartLabel?.trim()).toEqual(expected)
+    }
+
+
+    async assertCancelLabel(expected){
+        const cartLabel = await this.cancelSelector.textContent();
+        expect(cartLabel?.trim()).toEqual(expected)
+    }
+    
+    async assertContinueLabel(expected){
+        const value = await this.continueSelector.getAttribute('value');
+        expect(value?.trim()).toEqual(expected);
+    }
+
+    async enterFirstName(firstname: string){
+        await this.firstNameSelector.fill(firstname);
+    }
+
+    async enterLastName(lastname: string){
+        await this.lastNameSelector.fill(lastname);
+    }
+
+    async enterPostalCode(postalcode:string){
+        await this.postalCodeSelector.fill(postalcode);
+    }
+
+    async enterUserDetails(){
+        await this.enterFirstName("victor");
+        await this.enterLastName("memo");
+        await this.enterPostalCode("2244");
+    }
+
+    async clickContinue(){
+        await this.continueSelector.click();
     }
 
 }
