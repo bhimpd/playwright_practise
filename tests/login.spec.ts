@@ -104,6 +104,11 @@ test.only("Add the product to the cart", async({ page })=> {
     addtocart.assertCartTitleLabel("Your Cart");
     addtocart.assertCartQtyLabel("QTY");
     addtocart.assertCartDescLabel("Description");
+    addtocart.assertContinueShoppingLabel("Continue Shopping");
+    addtocart.assertCartQuantityLabel("1");
+    addtocart.assertCheckoutLabel("Checkout");
+
+
 
 
     await page.waitForTimeout(5000);
