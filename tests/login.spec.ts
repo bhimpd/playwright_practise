@@ -121,11 +121,32 @@ test.only("Add the product to the cart", async({ page })=> {
 
     addtocart.assertCancelLabel("Cancel");
     addtocart.assertContinueLabel("Continue");
+    await page.waitForTimeout(2000);
+
     addtocart.enterUserDetails();
     addtocart.clickContinue();
 
+    await login.assertDashboardPage("https://www.saucedemo.com/checkout-step-two.html");
+    
+    addtocart.assertPaymentInformation("Payment Information:");
+    addtocart.assertShippingInformation("Shipping Information:");
+    addtocart.assertTotal("Price Total");
 
+    addtocart.assertSubTotal("Item total: $29.99");
+    addtocart.assertTax("Tax: $2.40");
+    addtocart.assertGrandTotal("Total: $32.39")
+    addtocart.assertFinish("Finish");
+    addtocart.clickFinish();
 
-    await page.waitForTimeout(8000);
+    await login.assertDashboardPage("https://www.saucedemo.com/checkout-complete.html");
+
+    addtocart.assertComplete("Thank you for your order!");
+    addtocart.assertCompleteText("Your order has been dispatched, and will arrive just as fast as the pony can get there!");
+    addtocart.assertBackText("Back Home");
+    addtocart.clickBackHome();
+
+    await login.assertDashboardPage("https://www.saucedemo.com/inventory.html");
+
+    await page.waitForTimeout(5000);
 
 });

@@ -21,10 +21,19 @@ export class AddToCartPage {
     readonly lastNameSelector: Locator;
     readonly postalCodeSelector: Locator;
 
+    readonly paymentSelector: Locator;
+    readonly shippingSelector: Locator;
+    readonly totalSelector: Locator;
 
+    readonly subtotalSelector: Locator;
+    readonly taxSelector: Locator;
+    readonly grandtotalSelector: Locator;
 
+    readonly finishSelecctor: Locator;
 
-
+    readonly completeSelector: Locator;
+    readonly completeTextSelector: Locator;
+    readonly backSelector: Locator;  
 
     constructor(page:Page) {
         this.page = page;
@@ -51,6 +60,22 @@ export class AddToCartPage {
         this.lastNameSelector = page.locator("#last-name")
         this.postalCodeSelector = page.locator("#postal-code")
 
+        this.paymentSelector = page.locator("[data-test='payment-info-label']")
+        this.shippingSelector = page.locator("[data-test='shipping-info-label']")
+        this.totalSelector = page.locator("[data-test='total-info-label']")
+
+
+        this.subtotalSelector = page.locator("[data-test='subtotal-label']")
+        this.taxSelector = page.locator("[data-test='tax-label']")
+        this.grandtotalSelector = page.locator("[data-test='total-label']")
+
+        this.finishSelecctor = page.locator("#finish")
+
+        this.completeSelector = page.locator(".complete-header");
+        this.completeTextSelector = page.locator(".complete-text");
+
+        this.backSelector = page.locator("#back-to-products");
+        
 
     }
 
@@ -158,11 +183,71 @@ export class AddToCartPage {
     async enterUserDetails(){
         await this.enterFirstName("victor");
         await this.enterLastName("memo");
-        await this.enterPostalCode("2244");
+        await this.enterPostalCode("1234");
     }
 
     async clickContinue(){
         await this.continueSelector.click();
+    }
+
+
+    async assertPaymentInformation(expected){
+        const value = await this.paymentSelector.textContent();
+        expect(value?.trim()).toEqual(expected);
+    }
+
+    async assertShippingInformation(expected){
+        const value = await this.shippingSelector.textContent();
+        expect(value?.trim()).toEqual(expected);
+    }
+
+    async assertTotal(expected){
+        const value = await this.totalSelector.textContent();
+        expect(value?.trim()).toEqual(expected);
+    }
+
+    async assertSubTotal(expected){
+        const value = await this.subtotalSelector.textContent();
+        expect(value?.trim()).toEqual(expected);
+    }
+
+    async assertTax(expected){
+        const value = await this.taxSelector.textContent();
+        expect(value?.trim()).toEqual(expected);
+    }
+
+    async assertGrandTotal(expected){
+        const value = await this.grandtotalSelector.textContent();
+        expect(value?.trim()).toEqual(expected);
+    }
+
+    async assertFinish(expected){
+        const value = await this.finishSelecctor.textContent();
+        expect(value?.trim()).toEqual(expected);
+    }
+
+    async clickFinish(){
+        const value = await this.finishSelecctor.click();
+    }
+
+
+    async assertComplete(expected){
+        const value = await this.completeSelector.textContent();
+        expect(value?.trim()).toEqual(expected);
+    }
+
+    async assertCompleteText(expected){
+        const value = await this.completeTextSelector.textContent();
+        expect(value?.trim()).toEqual(expected);
+    }
+
+    async assertBackText(expected){
+        const value = await this.backSelector.textContent();
+        expect(value?.trim()).toEqual(expected);
+    }
+
+    async clickBackHome(){
+        const value = await this.backSelector.click();
     }
 
 }
