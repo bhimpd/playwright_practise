@@ -58,4 +58,17 @@ export class ProductPage {
   async goBack() {
     await this.page.locator('[data-test="back-to-products"]').click();
   }
+
+  // async selectFilter() {
+  //   const dropdown = this.page.locator('select');
+  //   await dropdown.selectOption({ label: "Name (A to Z)"});
+  //   await expect(dropdown).toHaveValue("az");
+  // }
+
+
+  async selectFilter() {
+    const dropdown = this.page.locator('select');
+    await dropdown.selectOption({ label: "Name (Z to A)"});
+    await expect(dropdown).toHaveValue("za");
+  }
 }

@@ -57,6 +57,7 @@ test("Assert the social media text and links", async({page}) =>{
     await page.waitForTimeout(5000);
 });
 
+
 test("Assert each product on listing and detail page", async ({ page }) => {
     const productPage = new ProductPage(page);
   
@@ -91,7 +92,8 @@ test("Assert each product on listing and detail page", async ({ page }) => {
     await page.waitForTimeout(5000);
 });
 
-test.only("Add the product to the cart", async({ page })=> {
+
+test("Add the product to the cart", async({ page })=> {
     const addtocart = new AddToCartPage(page);
     const login = new LoginPage(page);
 
