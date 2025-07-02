@@ -84,5 +84,22 @@ test("Should sort the product in Descending Order.", async ({ page }) => {
     await page.waitForTimeout(5000); 
   });
   
+  test("Should sort the product in Descending Price Order.", async ({ page }) => {
+    const productPage = new ProductPage(page);
+
+    await productPage.selectFilter("Price (high to low)","hilo");
+
+    const sortedProducts = [...productData].sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    console.log("Descending Price: Sorted Products::", sortedProducts);
+
+    for (let i = 0; i < sortedProducts.length; i++) {
+      const product = sortedProducts[i];
+      await productPage.assertTitle(i, product.name);
+      await productPage.assertDescription(i, product.details);
+      await productPage.assertPrice(i, `$${product.price}`);
+      await productPage.assertImage(i, product.image);
+    }
   
+    await page.waitForTimeout(5000); 
+  });
 
