@@ -59,16 +59,10 @@ export class ProductPage {
     await this.page.locator('[data-test="back-to-products"]').click();
   }
 
-  // async selectFilter() {
-  //   const dropdown = this.page.locator('select');
-  //   await dropdown.selectOption({ label: "Name (A to Z)"});
-  //   await expect(dropdown).toHaveValue("az");
-  // }
-
-
-  async selectFilter() {
+  async selectFilter(label:string,value:string) {
     const dropdown = this.page.locator('select');
-    await dropdown.selectOption({ label: "Name (Z to A)"});
-    await expect(dropdown).toHaveValue("za");
+    await dropdown.selectOption({ label: label});
+    await expect(dropdown).toHaveValue(value);
   }
+
 }

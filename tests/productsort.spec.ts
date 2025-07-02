@@ -24,11 +24,44 @@ test.beforeEach("Login", async({page})=>{
 });
 
 
-
-test.only("Should sort the product in Ascending Order.",async({page}) =>{
+test("Should sort the product in Ascending Order.", async ({ page }) => {
     const productPage = new ProductPage(page);
-   
-    await productPage.selectFilter();
+
+    await productPage.selectFilter("Name (A to Z)","az");
+
+    const ascendingOrder = [...productData].sort((a, b) => a.name.localeCompare(b.name));
+    console.log("Ascending: Sorted Products::", ascendingOrder);
+
+    for (let i = 0; i < ascendingOrder.length; i++) {
+      const product = ascendingOrder[i];
+      await productPage.assertTitle(i, product.name);
+      await productPage.assertDescription(i, product.details);
+      await productPage.assertPrice(i, `$${product.price}`);
+      await productPage.assertImage(i, product.image);
+    }
+  
     await page.waitForTimeout(5000);
-});
+  });
+
+
+test("Should sort the product in Descending Order.", async ({ page }) => {
+    const productPage = new ProductPage(page);
+
+    await productPage.selectFilter("Name (Z to A)","za");
+
+    const sortedProducts = [...productData].sort((a, b) => a.name.localeCompare(b.name));
+    const descendingOrder = [...sortedProducts].reverse();
+    console.log("Descending: Sorted Products::", descendingOrder);
+
+    for (let i = 0; i < sortedProducts.length; i++) {
+      const product = descendingOrder[i];
+      await productPage.assertTitle(i, product.name);
+      await productPage.assertDescription(i, product.details);
+      await productPage.assertPrice(i, `$${product.price}`);
+      await productPage.assertImage(i, product.image);
+    }
+  
+    await page.waitForTimeout(5000); 
+  });
+  
 
