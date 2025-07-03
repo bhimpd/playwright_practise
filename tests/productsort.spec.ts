@@ -1,8 +1,6 @@
 import {test,expect} from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
-import { HomePage } from '../pages/HomePage';
 import { ProductPage } from '../pages/ProductPage';
-import { AddToCartPage } from '../pages/AddToCartPage';
 
 
 import productData from '../data/productDetails.json';
