@@ -7,6 +7,9 @@ export class LoginPage {
   readonly loginButton: Locator;
   readonly logo:Locator;
   readonly loginError:Locator;
+  readonly hamburgerMenu:Locator;
+  readonly aboutUs:Locator;
+  readonly builAppText:Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -14,7 +17,11 @@ export class LoginPage {
     this.passwordInput = page.locator('#password');
     this.loginButton = page.locator('#login-button');
     this.logo = page.locator(".login_logo");
-    this.loginError = page.locator(".error-message-container.error")
+    this.loginError = page.locator(".error-message-container.error");
+    this.hamburgerMenu = page.locator("#react-burger-menu-btn");
+    this.aboutUs = page.locator("#about_sidebar_link")
+    this.builAppText = page.locator(".MuiBox-root.css-i3pbo")
+
   }
 
   async goto(url:string) {
@@ -58,5 +65,19 @@ async loginFailure() {
 async assertloginError(){
     await expect(this.loginError).toHaveText("Epic sadface: Username and password do not match any user in this service");
 }
+
+async clickHamburger(){
+  await this.hamburgerMenu.click();
+}
+
+
+async clickAboutUs(){
+  await this.aboutUs.click();
+}
+
+async buildAppText() {
+  await expect(this.builAppText).toHaveText("Build apps users love with AI-driven insights")
+}
+
 
 }
